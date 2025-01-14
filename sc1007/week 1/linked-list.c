@@ -13,6 +13,26 @@ struct LinkedList {
     size_t size;
 };
 
+void add(struct LinkedList *ll, int value) {
+    struct LinkedListNode *node = malloc(sizeof(struct LinkedListNode));
+    node->value = value;
+
+    struct LinkedListNode *cur = ll->first;
+    if (cur == NULL) {
+        ll->first = node;
+        return;
+    }
+
+    while (cur != NULL) {
+        if (cur->next == NULL) {
+            break;
+        }
+        cur = cur->next;
+    }
+
+    cur->next = node;
+}
+
 bool delete(struct LinkedList *ll, int value) {
     struct LinkedListNode *cur = ll->first;
     struct LinkedListNode *last = NULL;
@@ -54,19 +74,17 @@ bool has(struct LinkedList *ll, int value) {
 void freeLinkedList(struct LinkedList *ll) {
     struct LinkedListNode *cur = ll->first;
     while (cur != NULL) {
-        cur = cur->next;
-        free(cur);
+        struct LinkedListNode *next = cur->next; // Store the next node
+        free(cur); // Free the current node
+        cur = next; // Move to the next node
     }
-    free(ll);
+    free(ll); // Finally, free the linked list structure itself
 }
 
 struct LinkedList createLinkedList(int values[], size_t size) {
     struct LinkedListNode* first = malloc(sizeof(struct LinkedListNode));
     first->value = values[0];
     first->next = NULL;
- //    struct LinkedListNode first = {
- // values[0]
- //    };
     struct LinkedList ll = {
         first, size
     }; 
@@ -77,10 +95,6 @@ struct LinkedList createLinkedList(int values[], size_t size) {
         next->value = values[i];
         next->next = NULL;
 
-        // struct LinkedListNode next = {
-        //     values[i], NULL
-        // };
-        printf("Add %d: %p -> %p\n\r", i, cur, next);
         cur->next = next;
         cur = next;
     }
@@ -106,6 +120,8 @@ int main() {
     delete(&ll, 1);
     printf("%d exists (Deleted): %d\n\r", -33, has(&ll, -33));
 
+    add(&ll, 69);
+
     struct LinkedListNode *cur = ll.first;
     while (cur != NULL) {
         printf("Item: %d\n\r", cur->value);
@@ -113,12 +129,5 @@ int main() {
     }
     
     freeLinkedList(&ll);
-
-    // cur = ll.first;
-    // while (cur != NULL) {
-    //     printf("Item: %d\n\r", cur->value);
-    //     cur = cur->next;
-    // }
-
     return 0;
 }

@@ -16,50 +16,84 @@ public class P1 {
             System.out.println("7: quit");
             choice = sc.nextInt();
 
+            int a, b;
+            long n;
             switch (choice) {
                 case 1:
                     mulTest();
                     break;
                 case 2:
-                    divide();
+                    System.out.println("a / b");
+                    System.out.print("a: ");
+                    a = sc.nextInt();
+                    System.out.print("b: ");
+                    b = sc.nextInt();
+                    divide(a, b);
+
+                    // divide(4, 7);
+                    // divide(7, 7);
+                    // divide(25, 7);
                     break;
                 case 3:
-                    modulus();
+                    System.out.println("a % b");
+                    System.out.print("a: ");
+                    a = sc.nextInt();
+                    System.out.print("b: ");
+                    b = sc.nextInt();
+                    modulus(a, b);
+                    // modulus(4, 7);
+                    // modulus(7, 7);
+                    // modulus(25, 7);
                     break;
                 case 4:
-                    countDigits();
+                    System.out.println("Count digits of a");
+                    System.out.print("a: ");
+                    a = sc.nextInt();
+
+                    countDigits(a);
                     break;
                 case 5:
-                    position();
+                    System.out.println("Position of digit digit in n");
+                    System.out.print("n: ");
+                    a = sc.nextInt();
+                    System.out.print("digit: ");
+                    b = sc.nextInt();
+
+                    position(a, b);
                     break;
                 case 6:
-                    extractOddDigits();
+                    System.out.println("Odd digits in n");
+                    System.out.print("n: ");
+                    n = sc.nextLong();
+
+                    extractOddDigits(n);
                     break;
                 case 7:
                     System.out.println("Program terminating...");
             }
         } while (choice < 7);
+        sc.close();
     }
 
     public static void mulTest() {
         Scanner sc = new Scanner(System.in);
-
-        System.out.println("Test a * b");
-        System.out.print("a: ");
-        double a = sc.nextDouble();
-        System.out.print("b: ");
-        double b = sc.nextDouble();
-        System.out.println("a * b = " + (a * b));
+        int correct = 0;
+        int qns = 5;
+        for (int i = 1; i <= qns; i++) {
+            int a = (int) (Math.random() * 10); // Round down, does not include 10.    
+            int b = (int) (Math.random() * 10); // Round down, does not include 10.    
+            System.out.println("Q" + i + ": What is " + a + " * " + b + "? ");
+            if (sc.hasNextInt()) {
+                int ans = sc.nextInt();
+                if (ans == (a * b)) {
+                    correct++;
+                }
+            }
+        }
+        System.out.println(correct + " / " + qns + " were right.");
     }
 
-    public static void divide() {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Test division (quotient) a / b");
-        System.out.print("a: ");
-        double a = sc.nextDouble();
-        System.out.print("b: ");
-        double b = sc.nextDouble();
+    public static void divide(int a, int b) {
         if (b == 0) {
             System.out.println("Division by zero is not allowed!");
             return;
@@ -74,17 +108,10 @@ public class P1 {
             a -= b;
             quotient++;
         }
-        System.out.println("a / b (quotient) = " + quotient);
+        System.out.println(a + " / " + b + " = " + quotient);
     }
 
-    public static void modulus() {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Test division (remainder) a % b");
-        System.out.print("a: ");
-        double a = sc.nextDouble();
-        System.out.print("b: ");
-        double b = sc.nextDouble();
+    public static void modulus(int a, int b) {
         if (b == 0) {
             System.out.println("Division by zero is not allowed!");
             return;
@@ -94,19 +121,14 @@ public class P1 {
             return;
         }
         
-        while (a >= b) {
-            a -= b;
+        int remainder = a;
+        while (remainder >= b) {
+            remainder -= b;
         }
-        System.out.println("a % b = " + a);
+        System.out.println(a + " % " + b + " = " + remainder);
     }
 
-    public static void countDigits() {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Count digits of a");
-        System.out.print("a: ");
-        int a = sc.nextInt();
-
+    public static void countDigits(int a) {
         int count = 0;
         do {
             a = a / 10; // int truncates.
@@ -117,27 +139,20 @@ public class P1 {
         System.out.println("Total digits of a: " + count);
     }
 
-    public static void position() {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Position of digit a in b");
-        System.out.print("a: ");
-        int a = sc.nextInt();
-        System.out.print("b: ");
-        String bStr = sc.next();
-
-        char aChar = (char) (a + '0');
+    public static void position(int n, int digit) {
+        char digitChar = (char) (digit + '0');
+        String nStr = n + "";
 
         String posStr = "";
-        for (int i = 0; i < bStr.length(); i++) {
-            char charAtI = bStr.charAt(i);
+        for (int i = 0; i < nStr.length(); i++) {
+            char charAtI = nStr.charAt(i);
 
             if (charAtI < '0' || charAtI > '9') {
                 System.out.println("Invalid b value. b must be a number.");
                 return;
             }
             
-            if (charAtI == aChar) {
+            if (charAtI == digitChar) {
                 if (posStr == "") {
                     posStr = i + "";
                 } else {
@@ -146,19 +161,15 @@ public class P1 {
             }
         }
 
-        System.out.println("Positions of a in b: " + posStr);
+        System.out.println("Positions of " + digit +" in " + n + ": " + posStr);
     }
 
-    public static void extractOddDigits() {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Odd digits of a");
-        System.out.print("a: ");
-        String aStr = sc.next();
+    public static void extractOddDigits(long n) {
+        String nStr = n + "";
 
         String posStr = "";
-        for (int i = 0; i < aStr.length(); i++) {
-            char charAtI = aStr.charAt(i);
+        for (int i = 0; i < nStr.length(); i++) {
+            char charAtI = nStr.charAt(i);
 
             if (charAtI < '0' || charAtI > '9') {
                 System.out.println("Invalid b value. b must be a number.");
@@ -174,7 +185,7 @@ public class P1 {
             }
         }
 
-        System.out.println("Odd digits of a: " + posStr);
+        System.out.println("Odd digits of " + n +": " + posStr);
     }
 
 }

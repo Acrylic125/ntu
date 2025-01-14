@@ -70,3 +70,16 @@ gc.collect()
 gc_count = gc.get_count()
 print(f"after gc collect {gc_count}")
 
+# Guaranteed to be the same memory location
+# Larger strings may not get interned by python.
+e = sys.intern("hello world!!")
+f = sys.intern("hello world!!")
+print(f"{id(e)}: {e}")
+print(f"{id(f)}: {f}")
+
+a = "hello"
+b = "hello"
+c = "hello world!"
+d = "hello world!"
+print(a is b)
+print(c is d)

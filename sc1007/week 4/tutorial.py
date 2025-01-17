@@ -21,9 +21,11 @@ class LinkedList:
 
     def print(self):
         cur = self.first
+        l = []
         while (cur != None):
-            print(cur.value)
+            l.append(cur.value)
             cur = cur.next
+        print(l)
 
 def move_even_items_to_back(ll: LinkedList):
     while True:
@@ -54,10 +56,45 @@ def move_even_items_to_back(ll: LinkedList):
         else:
             return
 
+def move_max_to_front(ll: LinkedList):
+    if (ll.first == None):
+        return
+
+    targetLinkPrev: LinkedListLink | None = None
+    targetLink: LinkedListLink = ll.first
+
+    highest = targetLink.value
+    prev: LinkedListLink | None = None
+    cur = ll.first
+    while (cur != None):
+        if (cur.value > highest):
+            highest = cur.value
+            targetLink = cur
+            targetLinkPrev = prev
+        prev = cur
+        cur = cur.next
+
+    if (targetLinkPrev != None):
+        targetLinkPrev.next = targetLink.next
+        targetLink.next = ll.first
+        ll.first = targetLink
+
+print("Part 1")
+print("Before move:")
 ll = LinkedList(
         list(range(0, 11, 1))
         )
 ll.print()
 print("After move:")
 move_even_items_to_back(ll)
+ll.print()
+
+print("Part 2")
+print("Before move:")
+ll = LinkedList(
+        [1, 49, 69, 1000, 39, 568, 20, 420]
+        )
+ll.print()
+print("After move:")
+move_max_to_front(ll)
 ll.print()

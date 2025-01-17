@@ -79,6 +79,18 @@ def move_max_to_front(ll: LinkedList):
         targetLink.next = ll.first
         ll.first = targetLink
 
+def remove_duplicates_sorted_ll(ll: LinkedList):
+    if (ll.first == None):
+        return
+    prev: LinkedListLink = ll.first
+    cur = ll.first
+    while (cur != None):
+        if (cur.value != prev.value):
+            prev.next = cur
+            prev = cur
+        cur = cur.next
+    prev.next = None
+
 print("Part 1")
 print("Before move:")
 ll = LinkedList(
@@ -98,3 +110,14 @@ ll.print()
 print("After move:")
 move_max_to_front(ll)
 ll.print()
+
+print("Part 3")
+print("Before remove:")
+ll = LinkedList(
+        [1, 1, 2, 3, 4, 4, 5, 5]
+        )
+ll.print()
+print("After remove:")
+remove_duplicates_sorted_ll(ll)
+ll.print()
+

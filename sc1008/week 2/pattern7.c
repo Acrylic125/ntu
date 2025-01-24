@@ -5,6 +5,7 @@ int main() {
     int height;
     scanf("%d", &height);
 
+    printf("The pattern is:\n\r");
     for (int i = 1; i <= height; i++) {
         for (int j = height; j >= 1; j--) {
             if (j <= i) {

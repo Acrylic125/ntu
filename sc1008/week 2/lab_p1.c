@@ -3,14 +3,14 @@
 int main() {
     while (1) {
         int studentId;
-        printf("Student Id:\n\r");
+        printf("Enter Student ID:  \n\r");
         scanf("%d", &studentId);
         if (studentId == -1) {
             return 0;
         }
 
         int mark;
-        printf("Mark:\n\r");
+        printf("Enter Mark:  \n\r");
         scanf("%d", &mark);
 
         if (mark < 0 || mark > 100) {
@@ -31,7 +31,7 @@ int main() {
             grade = 'A';
         }
 
-        printf("Grade %c\n\r", grade);
+        printf("Grade = %c\n\r", grade);
     }
     return 0;
 }

@@ -2,11 +2,11 @@
 
 int main() {
     int lines;
-    printf("Enter number of lines: \n\r");
+    printf("Enter number of lines:  \n\r");
     scanf("%d", &lines);
 
     for (int i = 0; i < lines; i++) {
-        printf("Enter line %d (end with -1): \n\r", i + 1);
+        printf("Enter line %d (end with -1):  \n\r", i + 1);
         float tally = 0;
         int count = 0;
         
@@ -26,7 +26,7 @@ int main() {
         }
 
         float average = tally / count;
-        printf("Average: %.2f\n\r", average);
+        printf("Average = %.2f\n\r", average);
     }
     return 0;
 }

@@ -97,7 +97,7 @@ public class Plane {
             return;
         }
 
-        if (foundSeat.isOccupied()) {
+        if (!foundSeat.isOccupied()) {
             System.out.println("Seat is already empty. ");
             return;
         }

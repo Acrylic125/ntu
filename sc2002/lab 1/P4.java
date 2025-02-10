@@ -12,7 +12,8 @@ public class P4 {
 
         for (int i = 1; i <= height; i++) {
             for (int j = 0; j < i; j++) {
-                System.out.print(j % 2 == 0 ? "AA" : "BB"); 
+                int iMod = (i - 1) % 2;
+                System.out.print(j % 2 == iMod ? "AA" : "BB"); 
             }
             System.out.print("\n");
         }

@@ -28,8 +28,7 @@ public class P1 {
                     a = sc.nextInt();
                     System.out.print("b: ");
                     b = sc.nextInt();
-                    int quotient = divide(a, b);
-                    System.out.println(a + " / " + b + " = " + quotient);
+                    divide(a, b);
 
                     // divide(4, 7);
                     // divide(7, 7);
@@ -41,11 +40,7 @@ public class P1 {
                     a = sc.nextInt();
                     System.out.print("b: ");
                     b = sc.nextInt();
-
-                    int remainder = modulus(a, b);
-                    if (remainder != -1) {
-                        System.out.println(a + " % " + b + " = " + remainder);
-                    }
+                    modulus(a, b);
                     // modulus(4, 7);
                     // modulus(7, 7);
                     // modulus(25, 7);
@@ -55,34 +50,23 @@ public class P1 {
                     System.out.print("a: ");
                     a = sc.nextInt();
 
-                    int count = countDigits(a);
-                    if (a < 0) {
-                        System.out.println("Integer must be positive.");
-                        break;
-                    }
-                    System.out.println("Total digits of a: " + count);
+                    countDigits(a);
                     break;
                 case 5:
-                    System.out.println("Position of digit in n");
+                    System.out.println("Position of digit digit in n");
                     System.out.print("n: ");
                     a = sc.nextInt();
                     System.out.print("digit: ");
                     b = sc.nextInt();
 
-                    int pos = position(a, b);
-                    System.out.println("Positions of " + a + " in " + b + ": " + pos);
+                    position(a, b);
                     break;
                 case 6:
                     System.out.println("Odd digits in n");
                     System.out.print("n: ");
                     n = sc.nextLong();
-                    if (n < 0) {
-                        System.out.println("Integer must be positive.");
-                        break;
-                    }
 
-                    long res = extractOddDigits(n);
-                    System.out.println("Odd digits of " + n + ": " + n == "" ? "-1" : res);
+                    extractOddDigits(n);
                     break;
                 case 7:
                     System.out.println("Program terminating...");
@@ -109,14 +93,14 @@ public class P1 {
         System.out.println(correct + " / " + qns + " were right.");
     }
 
-    public static int divide(int a, int b) {
+    public static void divide(int a, int b) {
         if (b == 0) {
             System.out.println("Division by zero is not allowed!");
-            return -1;
+            return;
         }
         if (a < 0 || b < 0) {
             System.out.println("a and b must be positive.");
-            return -1;
+            return;
         }
         
         int quotient = 0;
@@ -124,27 +108,31 @@ public class P1 {
             a -= b;
             quotient++;
         }
-        return quotient;
+        System.out.println(a + " / " + b + " = " + quotient);
     }
 
-    public static int modulus(int a, int b) {
+    public static void modulus(int a, int b) {
         if (b == 0) {
             System.out.println("Division by zero is not allowed!");
-            return -1;
+            return;
         }
         if (a < 0 || b < 0) {
             System.out.println("a and b must be positive.");
-            return -1;
+            return;
         }
         
         int remainder = a;
         while (remainder >= b) {
             remainder -= b;
         }
-        return remainder;
+        System.out.println(a + " % " + b + " = " + remainder);
     }
 
-    public static int countDigits(int a) {
+    public static void countDigits(int a) {
+        if (a < 0) {
+            System.out.println("Integer must be positive.");
+            return;
+        }
         int count = 0;
         do {
             a = a / 10; // int truncates.
@@ -152,45 +140,52 @@ public class P1 {
         }
         while (a > 0);
 
-        return count;
+        System.out.println("Total digits of a: " + count);
     }
 
-    public static int position(int n, int digit) {
+    public static void position(int n, int digit) {
         char digitChar = (char) (digit + '0');
         String nStr = n + "";
 
-        for (int i = nStr.length() - 1; i >= 0; i--) {
-            char charAtI = nStr.charAt(i);
-
-            if (charAtI == digitChar) {
-                return nStr.length() - i;
-            }
-        }
-
-        return -1;
-    }
-
-    public static long extractOddDigits(long n) {
-        String nStr = n + "";
-
-        String str = "";
+        int pos = -1;
         for (int i = 0; i < nStr.length(); i++) {
             char charAtI = nStr.charAt(i);
 
             if (charAtI < '0' || charAtI > '9') {
                 System.out.println("Invalid b value. b must be a number.");
-                return -1;
+                return;
             }
             
-            if (charAtI == '1' || charAtI == '3' || charAtI == '5' || charAtI == '7' || charAtI == '9') {
-                str += charAtI;
+            if (charAtI == digitChar) {
+                pos = i +
             }
         }
 
-        if (str == "") {
-            return -1;
+        System.out.println("Positions of " + digit +" in " + n + ": " + posStr);
+    }
+
+    public static void extractOddDigits(long n) {
+        String nStr = n + "";
+
+        String posStr = "";
+        for (int i = 0; i < nStr.length(); i++) {
+            char charAtI = nStr.charAt(i);
+
+            if (charAtI < '0' || charAtI > '9') {
+                System.out.println("Invalid b value. b must be a number.");
+                return;
+            }
+            
+            if (charAtI == '1' || charAtI == '3' || charAtI == '5' || charAtI == '7' || charAtI == '9') {
+                if (posStr == "") {
+                    posStr = i + "";
+                } else {
+                    posStr += ", " + i;
+                }
+            }
         }
-        return Long.parseLong(str);
+
+        System.out.println("Odd digits of " + n +": " + posStr);
     }
 
 }

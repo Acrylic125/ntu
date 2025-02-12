@@ -1,4 +1,4 @@
-package com.lab;
+package com.lab.part1;
 
 public class SalePerson implements Comparable {
     private String firstName, lastName;

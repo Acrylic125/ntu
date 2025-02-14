@@ -59,7 +59,6 @@ def moveMinNode(head):
         return head
 
     cur = head 
-    prev = None
     min_node_head: Node | None = None
     min_node_chain: Node | None = None
     

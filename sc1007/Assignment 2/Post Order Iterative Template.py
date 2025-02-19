@@ -63,101 +63,13 @@ def postOrderIterativeS1(root: BSTNode):
         if is_empty(stack):
             return
         parent = peek(stack)
+        assert parent != None
+        # This is to check if the traversal should go back up or go to the right.
         if parent.right != last_printed:
             cur = parent.right 
         else:
+            # None here implies, dont look to the left.
             cur = None
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # stack = Stack()
-    # curr = root
-    # lastVisited = None
-    #
-    # while curr is not None or not is_empty(stack):
-    #     # Go all the way left
-    #     while curr is not None:
-    #         push(stack, curr)
-    #         curr = curr.left
-    #         
-    #     # Peek at the top node
-    #     curr = peek(stack)
-    #     assert curr != None
-    #     
-    #     # If right child exists and hasn't been processed yet,
-    #     # move to right subtree
-    #     if curr.right is not None and curr.right != lastVisited:
-    #         curr = curr.right
-    #     else:
-    #         # Process current node
-    #         print(curr.data, end=' ')
-    #         lastVisited = curr
-    #         pop(stack)
-    #         curr = None
-    #
-# def postOrderIterativeS1(root):
-#     stack = Stack()
-#     # Add root node to stack.
-#     push(stack, root)
-#     while not is_empty(stack):
-#         cur = peek(stack)
-#         assert cur != None
-#         # If peeked node has no child, then pop and print it.
-#         if cur.left == None:
-#             print(cur.data, end=" ")
-#             pop(stack)
-#         # Else: Add Right Left to the stack (Reversed order of postorder)
-#         else:
-#             push(stack, cur.right) 
-#             push(stack, cur.left) 
-        # while True:
-        #     push(stack, cur)
-        #     cur = cur.left
-        #     if cur.left == None:
-        #         break
-
-        # while cur != None:
-        #     push(stack, cur)
-        #     cur = cur.left
-        #
-        # if is_empty(stack):
-        #     return
-
-        # Get left most node in subtree
-        # cur = pop(stack)
-        # assert cur != None
-        # print(cur.data, end=" ")
-        # cur = cur.right
-
-        # Get parent node
-        # parent = peek(stack)
-        # if parent == None:
-        #     return
-        # cur = parent.right
 
 if __name__ == "__main__":
    root = None

@@ -44,10 +44,33 @@ def is_empty(stack):
    return stack.top is None
 
 def postOrderIterativeS2(root):
-# Write your code here #
+    backtracking_stack = Stack()
+    result_stack = Stack()
+
+    push(backtracking_stack, root)
+    while not is_empty(backtracking_stack):
+        cur = pop(backtracking_stack)
+        assert cur != None 
+        push(result_stack, cur)
+        if cur.left != None: 
+            push(backtracking_stack, cur.left)
+        if cur.right != None: 
+            push(backtracking_stack, cur.right)
+
+    while not is_empty(result_stack):
+        cur = pop(result_stack)
+        assert cur != None
+        print(cur.data, end=" ")
 
 if __name__ == "__main__":
    root = None
+
+   choice = 1
+   d = [20, 15, 50, 10, 18, 25, 80]
+   # d = [20, 15, 50, 10, 18]
+   for i in d:
+       root = insert(root, i)
+
    choice = 1
 
    print("1: Insert an integer into the binary search tree")

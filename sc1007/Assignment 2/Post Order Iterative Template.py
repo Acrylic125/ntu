@@ -56,20 +56,33 @@ def postOrderIterativeS1(root: BSTNode):
         while cur != None:
             push(stack, cur)
             cur = cur.left 
-        cur = pop(stack) 
-        assert cur != None
-        print(cur.data, end=" ")
-        last_printed = cur
-        if is_empty(stack):
+
+        cur = peek(stack)
+        if cur == None:
             return
-        parent = peek(stack)
-        assert parent != None
-        # This is to check if the traversal should go back up or go to the right.
-        if parent.right != last_printed:
-            cur = parent.right 
+        # There is a case where the subtree does not have left node but has right node
+        if cur.right != None and last_printed != cur.right: 
+            cur = cur.right
         else:
-            # None here implies, dont look to the left.
+            print(cur.data, end=" ")
+            pop(stack)
+            last_printed = cur
             cur = None
+
+        # cur = pop(stack) 
+        # assert cur != None
+        # print(cur.data, end=" ")
+        # last_printed = cur
+        # if is_empty(stack):
+        #     return
+        # parent = peek(stack)
+        # assert parent != None
+        # # This is to check if the traversal should go back up or go to the right.
+        # if parent.right != last_printed:
+        #     cur = parent.right 
+        # else:
+        #     # None here implies, dont look to the left.
+        #     cur = None
 
 if __name__ == "__main__":
    root = None

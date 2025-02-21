@@ -21,37 +21,45 @@ def printTree(node, level=0, prefix="Root: "):
                 printTree(node.right, level + 4, "R--- ")
 
 def hasGreatGrandchild(node):
-    queue = []
-    if node.right != None:
-        cur = node.right
-        queue.append(cur)
-        hasGreatGrandchild(cur)
-    if node.left != None:
-        cur = node.left
-        queue.append(cur)
-        hasGreatGrandchild(cur)
-    if len(queue) <= 0:
-        return False
+    left_height = hasGreatGrandchild(node.left) if node.left != None else 0
+    right_height = hasGreatGrandchild(node.right) if node.right != None else 0
 
-    level = 0
-    first_in_level = None 
-    while len(queue) > 0:
-        cur = queue.pop(0)
-        if first_in_level != None and cur == first_in_level:
-            first_in_level = None
-            level += 1
-        if cur.right != None:
-            if first_in_level == None: 
-                first_in_level = cur.right
-            queue.append(cur.right)
-        if cur.left != None:
-            if first_in_level == None: 
-                first_in_level = cur.left
-            queue.append(cur.left)
-    if level >= 2:
+    total_height = max(left_height, right_height) + 1
+    if total_height > 3:
         print(node.item, end=" ")
-        return True
-    return False 
+    return total_height
+
+    # queue = []
+    # if node.right != None:
+    #     cur = node.right
+    #     queue.append(cur)
+    #     hasGreatGrandchild(cur)
+    # if node.left != None:
+    #     cur = node.left
+    #     queue.append(cur)
+    #     hasGreatGrandchild(cur)
+    # if len(queue) <= 0:
+    #     return False
+    #
+    # level = 0
+    # first_in_level = None 
+    # while len(queue) > 0:
+    #     cur = queue.pop(0)
+    #     if first_in_level != None and cur == first_in_level:
+    #         first_in_level = None
+    #         level += 1
+    #     if cur.right != None:
+    #         if first_in_level == None: 
+    #             first_in_level = cur.right
+    #         queue.append(cur.right)
+    #     if cur.left != None:
+    #         if first_in_level == None: 
+    #             first_in_level = cur.left
+    #         queue.append(cur.left)
+    # if level >= 2:
+    #     print(node.item, end=" ")
+    #     return True
+    # return False 
 
 # Write your code here #
 

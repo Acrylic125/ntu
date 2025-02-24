@@ -2,6 +2,8 @@ package com.lab5;
 
 public interface Searchable {
 
-    boolean isMatch(String keyword); 
+    default boolean isMatch(String keyword) {
+        return false;
+    }
 
 }

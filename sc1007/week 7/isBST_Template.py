@@ -49,14 +49,15 @@ def isBST(node, min_val=float('-inf'), max_val=float('inf')):
     """ Checks if a tree is a valid BST using min/max constraints. """
     if node == None:
         return True 
-    if node.item < min_val and node.item > max_val:
+    if node.item < min_val or node.item > max_val:
+        print(f"Failed at {node.item} with {min_val} {max_val}")
         return False 
     is_left_valid = True
     is_right_valid = True
     if node.left != None:
-        is_left_valid = node.left.item <= node.item and isBST(node.left, min_val, node.right.item if node.right != None else max_val)
+        is_left_valid = node.left.item <= node.item and isBST(node.left, min_val, node.item)
     if node.right != None:
-        is_right_valid = node.right.item > node.item and isBST(node.right, node.left.item if node.left != None else min_val, max_val)
+        is_right_valid = node.right.item > node.item and isBST(node.right, node.item, max_val)
     return is_left_valid and is_right_valid
 # Write your code here #
 

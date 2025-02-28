@@ -22,7 +22,103 @@ def findMin(node):
     return node
 
 def removeBSTNode(node, value):
- # Write your code here #
+    parent: BTNode | None = None 
+    node_to_delete: BTNode | None = None 
+    
+    parent = None
+    cur = node 
+    while cur != None:
+        if value == cur.item:
+            node_to_delete = cur
+            break
+        parent = cur
+        if value < cur.item:
+            cur = cur.left
+        else:
+            cur = cur.right
+
+    if node_to_delete == None:
+        return 1
+    if parent == None: 
+        raise RuntimeError("Tree needs at least 2 levels.")
+
+    child_side = -1 if parent.left == node_to_delete else 1
+
+    left: BTNode | None = node_to_delete.left
+    right: BTNode | None = node_to_delete.right
+
+    # No child
+    if left == None and right == None:
+        if child_side >= 0:
+            parent.right = None
+        else:
+            parent.left = None
+        return 0
+
+    # 1 child
+    if left == None and right != None:
+        if child_side >= 0:
+            parent.right = right
+        else:
+            parent.left = right
+        return 0
+    if left != None and right == None:
+        if child_side >= 0:
+            parent.right = left
+        else:
+            parent.left = left
+        return 0
+
+    # 2 Child :w
+    successor_parent = node_to_delete
+    successor: BTNode = right
+    while successor.left != None:
+        successor_parent = successor
+        successor = successor.left
+    print(f"{successor_parent.item} {successor.item}")
+    if successor == right:
+        node_to_delete.item = successor.item
+        node_to_delete.right = None
+    else:
+        node_to_delete.item = successor.item
+        successor_parent.left = successor.right
+    #     node_to_delete.right = None
+    # else:
+    #     node_to_delete.item = successor.item 
+    #     successor_parent.left = successor.right
+
+    return 0
+
+# def removeBSTNode(node, value):
+#     if node.item == value:
+#         # No child case.
+#         if node.left == None and node.right == None:
+#             return None 
+#         
+#         # 1 child case.
+#         if node.left == None and node.right != None:
+#             return node.right
+#         if node.left != None and node.right == None:
+#             return node.left
+#     
+#         # 2 child case 
+#         parent = None
+#         successor = node.right
+#         while successor.left != None:
+#             parent = successor
+#             successor = successor.left
+#         if parent != None:
+#             parent.left = successor.right 
+#         successor.left = node.left
+#         successor.right = node.right
+#         return successor
+#
+#     if node.left != None and value <= node.left.item:
+#         node.left = removeBSTNode(node.left, value)
+#     if node.right != None and value <= node.right.item:
+#         node.right = removeBSTNode(node.right, value)
+#     return node
+
 
 def printBSTInOrder(node):
     """ Print BST items in sorted order using in-order traversal. """
@@ -43,6 +139,17 @@ def printTree(node, level=0, prefix="Root: "):
 
 if __name__ == "__main__":
     root = None
+    root = BTNode(item=100)
+    root.left = BTNode(item=50)
+    root.left.left = BTNode(item=25)
+    root.left.left.left = BTNode(item=12)
+    root.left.left.right = BTNode(item=32)
+    root.left.right = BTNode(item=75)
+    root.left.right.left = BTNode(item=62)
+    root.left.right.right = BTNode(item=80)
+    root.right = BTNode(item=150)
+    root.right.left = BTNode(item=125)
+    root.right.right = BTNode(item=175)
     print("Binary Search Tree Node Removal Program")
     print("=====================================")
     
@@ -79,6 +186,7 @@ if __name__ == "__main__":
                 break
                 
             result = removeBSTNode(root, i)
+            result = 0
             if result == 0:
                 print("\nBST structure after removal:")
                 printTree(root)

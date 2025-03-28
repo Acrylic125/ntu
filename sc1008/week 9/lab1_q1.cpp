@@ -6,12 +6,14 @@ using namespace std;
 int getValidInt() {
   // char *p;
   // long converted = strtol(line.c_str(), &p, 10);
-  char buf[33];
+  char buf[50];
   while (true) {
-    bool foundValid = false;
-    cin.getline(buf, 33);
+    cin.getline(buf, 50);
 
-    int i = 0;
+    bool foundValid = false;
+    bool isNeg = buf[0] == '-';
+
+    int i = isNeg ? 1 : 0;
     int acc = 0;
     while (buf[i] != '\0') {
       if (isdigit(buf[i])) {
@@ -23,20 +25,25 @@ int getValidInt() {
       }
       i++;
     }
-    if (foundValid)
+    if (foundValid) {
+      if (isNeg)
+        acc *= -1;
       return acc;
+    }
     cout << "Invalid input! Please enter an integer: ";
   }
 }
 
 // Function to get a valid float input
 float getValidFloat() {
-  char buf[33];
+  char buf[50];
   while (true) {
-    cin.getline(buf, 33);
+    cin.getline(buf, 50);
 
     bool foundValid = false;
-    int i = 0;
+    bool isNeg = buf[0] == '-';
+
+    int i = isNeg ? 1 : 0;
     float acc = 0;
     float fracFactor = 0; // Sets to 1 when '.' is found.
     while (buf[i] != '\0') {
@@ -56,8 +63,11 @@ float getValidFloat() {
       }
       i++;
     }
-    if (foundValid)
+    if (foundValid) {
+      if (isNeg)
+        acc *= -1;
       return acc;
+    }
     cout << "Invalid input! Please enter a float: ";
   }
 }

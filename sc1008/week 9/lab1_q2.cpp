@@ -15,6 +15,7 @@ template <typename T> T calculate(T a, T b, char op) {
     return a * b;
   case '/':
     if (isZero(b)) {
+      cout << "Error: Division by zero!" << endl;
       return 0;
     }
     return a / b;

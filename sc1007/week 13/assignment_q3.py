@@ -17,15 +17,11 @@ def hash2(key):
 
 def hash_insert(key, hash_table):
     available_slot = None 
-    # if key == 40:
-    #     print("-----")
 
     key_comparisons = 0
     for i in range(TABLESIZE):
         index = hash1(hash1(key) + i * hash2(key)) 
         value = hash_table[index]
-        # if key == 40:
-        #     print(f"{index} {value.indicator}")
         if value.indicator == DELETED:
             if available_slot == None:
                 available_slot = value 
@@ -37,7 +33,7 @@ def hash_insert(key, hash_table):
             value.indicator = USED
             return key_comparisons
         key_comparisons = key_comparisons + 1
-        if value.key == key:
+        if value.key == key and value.indicator == USED:
             return -1
     if available_slot != None:
         available_slot.key = key
@@ -70,7 +66,10 @@ def print_menu():
 def main():
     # import sys
     # input = sys.stdin.read
-    st = "1 5 1 41 1 42 3 1 9 1 72 1 73 1 42 1 79 2 42 3 2 42 1 43 1 37 1 36 1 27 1 22 1 15 1 77 1 66 1 22 1 45 1 79 1 23 1 5 1 38 1 39 1 40 1 443 1 468 1 98 2 45 2 79 3 1 99 1 605 1 74 1 28 1 91 1 92 1 27 1 28 1 29 1 30 1 31 1 32 1 33 1 35 1 27 1 26 1 55 2 55 1 56 1 57 3 1 32 2 57 1 57 1 26 1 45 2 56 3 4 "
+    st = "2 3 3"
+    # st = "1 5 1 42 2 5 1 5 1 42 3"
+    # st = "1 5 1 41 1 42 3 1 9 1 72 1 73 1 42 1 79 2 42 3 2 42 1 43 1 37 1 36 1 27 1 22 1 15 1 77 1 66 1 22 1 45 1 79 1 23 1 5 1 38 1 39 1 40 1 443 1 468 1 98 2 45 2 79 3 1 99 1 605 1 74 1 28 1 91 1 92 1 27 1 28 1 29 1 30 1 31 1 32 1 33 1 35 1 27 1 26 1 55 2 55 1 56 1 57 3 1 32 2 57 1 57 1 26 1 45 2 56 3 4 "
+    # st = "1 5 1 10 1 7 1 9 1 11 2 7 1 69 3"
     data = list(map(int, st.split()))
     
     print("Done")

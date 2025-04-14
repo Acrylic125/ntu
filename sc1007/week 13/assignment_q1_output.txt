@@ -1,0 +1,27 @@
+============= Hash Table ============
+|1. Insert a key to the hash table  |
+|2. Search a key in the hash table  |
+|3. Print the hash table            |
+|4. Quit                            |
+=====================================
+Enter selection: Enter a key to be inserted:
+Insert 14 at index 0
+Enter selection: Enter a key to be inserted:
+Insert 7 at index 1
+Enter selection: Enter a key to be inserted:
+Insert 5 at index 5
+Enter selection: Enter a key to be inserted:
+Insert 15 at index 2
+Enter selection: Enter a key to be inserted:
+Insert 13 at index 6
+Enter selection: Enter a key to be inserted:
+Insert 19 at index 3
+Enter selection: index:	 key 	 next
+0	14	1
+1	7	2
+2	15	-1
+3	19	-1
+4	0	-1
+5	5	3
+6	13	-1
+Enter selection: 

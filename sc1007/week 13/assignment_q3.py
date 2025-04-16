@@ -20,40 +20,42 @@ def hash_insert(key, hash_table):
 
     key_comparisons = 0
     for i in range(TABLESIZE):
-        index = hash1(hash1(key) + i * hash2(key)) 
+        index = (hash1(key) + i * hash2(key)) % TABLESIZE
         value = hash_table[index]
+        if value.indicator == USED:
+            key_comparisons = key_comparisons + 1
+            if value.key == key:
+                return -1
         if value.indicator == DELETED:
             if available_slot == None:
                 available_slot = value 
-            continue
-        if available_slot != None and value.indicator == EMPTY:
-            break
-        if value.indicator == EMPTY and available_slot == None:
+        if value.indicator == EMPTY:
+            if available_slot != None:
+                available_slot.key = key
+                available_slot.indicator = USED
+                return key_comparisons
             value.key = key
             value.indicator = USED
             return key_comparisons
-        key_comparisons = key_comparisons + 1
-        if value.key == key and value.indicator == USED:
-            return -1
     if available_slot != None:
         available_slot.key = key
         available_slot.indicator = USED
         return key_comparisons
-    return TABLESIZE + 69
-        
+    return TABLESIZE
+
 def hash_delete(key, hash_table):
     key_comparisons = 0
     for i in range(TABLESIZE):
-        index = hash1(hash1(key) + i * hash2(key)) 
+        index = (hash1(key) + i * hash2(key)) % TABLESIZE
         value = hash_table[index]
         if value.indicator == EMPTY:
             return -1 
-        key_comparisons = key_comparisons + 1
-        if value.key == key and value.indicator == USED:
-            value.indicator = DELETED
-            return key_comparisons
-    return TABLESIZE + 69
-
+        if value.indicator == USED:
+            key_comparisons = key_comparisons + 1
+            if value.key == key:
+                value.indicator = DELETED
+                return key_comparisons
+    return -1
 def print_menu():
     print("============= Hash Table ============")
     print("|1. Insert a key to the hash table  |")
